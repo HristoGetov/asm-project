@@ -129,19 +129,21 @@ InitialSetUp:
 				LDI R19, 0										;Register defined for startSequence ends		
 
 startSequence:
-				LDI R16, initial_Value_For_LED_On               ;Inverts binary pattern so pattern looks as 0000 0000
-				OUT porta, R16									;Turn on LEDs
+				LDI R16, initial_Value_For_LED_On               ; Inverts binary pattern so pattern looks as 0000 0000
+				OUT porta, R16									; Turn on LEDs
 																;
 																;
-																;Startin Delay
-.set counterLED =50
+																; Startin Delay
+																;
+																;
+.set counterLED =50												; Counter timer for LED's
 
 call delayLED
-				LDI r16, initial_Value_For_LED_Off				;Inverts binary pattern in register r16 = 1111 1111
-				OUT porta, R16									;Turn off LEDs
+				LDI r16, initial_Value_For_LED_Off				; Inverts binary pattern in register r16 = 1111 1111
+				OUT porta, R16									; Turn off LEDs
 call delayLED
-				SUB R18, R19									;While not equal
-				BRNE startSequence								;Substract
+				SUB R18, R19									; While not equal
+				BRNE startSequence								; Substract
 
 
 
@@ -149,12 +151,27 @@ call delayLED
 
 
 
-                                                                ;Setup for level = 1
-                                                                ;If wrong input go back to InitialSetUp
-                                                                ;Game will restart
+                                                                ; Setup for level = 1
+                                                                ; If wrong input go back to InitialSetUp
+                                                                ; Game will restart
 Level1:
+						
+						
+																; Input level number on the leds in binary sequence
+				LDI R16 , level_Pattern_1
+				out porta, R16
+.set counterLED = 200											; Set counter timer for led
 
-
+call delayLED													; Call delay on the led
+				LDI R16, initial_Value_For_LED_Off				; Turn off leds after announcing the level
+call delayLED													; Call delay so player prepares to start game
+				LDI R16, bitPattern_level_1						; Show first bit pattern to player
+call delayLED													; Call delay so player has time to see pattern
+				LDI R16, initial_Value_For_LED_Off				; Turn off leds after showing the pattern for the current level
+.set counterPlayer = 200										; Set counter timer for player input
+call delayPlayer												; Call delay for player input
+				IN R17,pinb										; Record player input in
+				CP R17,R16										; Compare bit pattern for current level with player input
 
 
 
@@ -632,19 +649,24 @@ BRNE InitialSetUp
 		;DELAY
 	;DELAY
 ;DELAY
+
+
+
+
+;Delay methos showed by the teacher way to keep cpu busy so player is able to see result
 delayLED:
 						ldi r22,counterLED
-loops:
+loop:
 						ldi r23,counterLED				
-innerLoops:
+innerLoop:
 						ldi r24,counterLED	
-innerLoops2:
+innerLoop2:
 						dec r22
-brne innerLoops2
+brne innerLoop2
 						dec r23
-brne innerLoops
+brne innerLoop
 						dec r24
-brne loops
+brne loop
 ret
 
 
