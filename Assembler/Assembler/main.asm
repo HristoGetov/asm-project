@@ -84,9 +84,8 @@
 .equ initial_Value_For_LED_Off = 0b11111111                     ;Initial value for set up LED to be off
 .equ initial_Value_For_LED_On  = 0b00000000						;Initial value for set up LED to be on
 
-.equ timeForDelay = 0											; Time for delay
-
-
+.set counterLED	=250											;Counter for LED
+.set counterPlayer=250											;Counter for Player
 ;
 	;
 		;
@@ -106,6 +105,10 @@
 																;Main program starts
 																;
 																;
+																;
+																;
+																;
+																;
 																;Initial setup of the game
 
 
@@ -113,16 +116,32 @@ InitialSetUp:
 				LDI r16, initial_Value_For_LED_Off				;Sets binary pattern in register r16 = 1111 1111
 				OUT ddra , R16									;Writes the binary pattern to port a data direction registrer
 				OUT porta, R16									;Turn of LEDs
+																;
+																;
+																;
+																;
+																;Create stack
+				LDI R17,high(RAMEND)
+				out sph, R17
+				LDI R17,low(RAMEND)
+				out spl, R17
+				LDI R18, 5										;Register defined for startSequence
+				LDI R19, 0										;Register defined for startSequence ends		
 
 startSequence:
-				LDI R16, initial_Value_For_LED_On               ;Invert binary pattern so pattern looks as 0000 0000
+				LDI R16, initial_Value_For_LED_On               ;Inverts binary pattern so pattern looks as 0000 0000
 				OUT porta, R16									;Turn on LEDs
 																;
 																;
 																;Startin Delay
-				
+.set counterLED =50
 
-				
+call delayLED
+				LDI r16, initial_Value_For_LED_Off				;Inverts binary pattern in register r16 = 1111 1111
+				OUT porta, R16									;Turn off LEDs
+call delayLED
+				SUB R18, R19									;While not equal
+				BRNE startSequence								;Substract
 
 
 
@@ -613,4 +632,38 @@ BRNE InitialSetUp
 		;DELAY
 	;DELAY
 ;DELAY
+delayLED:
+						ldi r22,counterLED
+loops:
+						ldi r23,counterLED				
+innerLoops:
+						ldi r24,counterLED	
+innerLoops2:
+						dec r22
+brne innerLoops2
+						dec r23
+brne innerLoops
+						dec r24
+brne loops
+ret
 
+
+
+delayPlayer:
+						ldi r22,counterPlayer
+loops:
+						ldi r23,counterPlayer				
+innerLoops:
+						ldi r24,counterPlayer	
+innerLoops2:
+						ldi r25,counterPlayer	
+innerLoops3:
+						dec r25					
+brne innerLoops3
+						dec r24
+brne innerLoops2
+						dec r23
+brne innerLoops
+						dec r22
+brne loops
+ret
