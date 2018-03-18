@@ -187,6 +187,22 @@ BRNE InitialSetUp
 Level2:
 
 
+																; Input level number on the leds in binary sequence
+			LDI R18 , level_Pattern_2
+			out porta, R18
+	.set counterLED = 190										; Set counter timer for led
+
+	call delayPlayer											; Call delay on the led
+				LDI R18, initial_Value_For_LED_Off				; Turn off leds after announcing the level
+	call delayLED												; Call delay so player prepares to start game
+				LDI R18, bitPattern_level_2						; Show first bit pattern to player
+	call delayLED												; Call delay so player has time to see pattern
+				LDI R18, initial_Value_For_LED_Off				; Turn off leds after showing the pattern for the current level
+	.set counterPlayer = 190									; Set counter timer for player input
+	call delayPlayer											; Call delay for player input
+				IN R19,pinb										; Record player input in
+				CP R19,R18										; Compare bit pattern for current level with player input
+
 
 
 
@@ -202,7 +218,21 @@ BRNE InitialSetUp
 Level3:
 
 
+														; Input level number on the leds in binary sequence
+			LDI R18 , level_Pattern_3
+			out porta, R20
+	.set counterLED = 160										; Set counter timer for led
 
+	call delayPlayer											; Call delay on the led
+				LDI R20, initial_Value_For_LED_Off				; Turn off leds after announcing the level
+	call delayLED												; Call delay so player prepares to start game
+				LDI R20, bitPattern_level_3						; Show first bit pattern to player
+	call delayLED												; Call delay so player has time to see pattern
+				LDI R18, initial_Value_For_LED_Off				; Turn off leds after showing the pattern for the current level
+	.set counterPlayer = 160									; Set counter timer for player input
+	call delayPlayer											; Call delay for player input
+				IN R21,pinb										; Record player input in
+				CP R21,R20										; Compare bit pattern for current level with player input
 
 
 
@@ -216,7 +246,21 @@ BRNE InitialSetUp
                                                                 ;Game will restart
 Level4:
 
+														; Input level number on the leds in binary sequence
+			LDI R18 , level_Pattern_4
+			out porta, R22
+	.set counterLED = 140										; Set counter timer for led
 
+	call delayPlayer											; Call delay on the led
+				LDI R22, initial_Value_For_LED_Off				; Turn off leds after announcing the level
+	call delayLED												; Call delay so player prepares to start game
+				LDI R22, bitPattern_level_4						; Show first bit pattern to player
+	call delayLED												; Call delay so player has time to see pattern
+				LDI R22, initial_Value_For_LED_Off				; Turn off leds after showing the pattern for the current level
+	.set counterPlayer = 140									; Set counter timer for player input
+	call delayPlayer											; Call delay for player input
+				IN R23,pinb										; Record player input in
+				CP R23,R22										; Compare bit pattern for current level with player input
 
 
 
