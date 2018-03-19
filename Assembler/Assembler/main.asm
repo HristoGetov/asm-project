@@ -187,8 +187,8 @@ BRNE InitialSetUp
 Level2:
 
 
-																; Input level number on the leds in binary sequence
-			LDI R18 , level_Pattern_2
+			LDI R16 , initial_Value_For_LED_Off					; Input level number on the leds in binary sequence
+			LDI R16 , level_Pattern_2
 			out porta, R16
 	.set counterLED = 190										; Set counter timer for led
 
@@ -218,8 +218,9 @@ BRNE InitialSetUp
 Level3:
 
 
-														; Input level number on the leds in binary sequence
-			LDI R20 , level_Pattern_3
+																; Input level number on the leds in binary sequence
+			LDI R16 , initial_Value_For_LED_Off
+			LDI R16 , level_Pattern_3
 			out porta, R16
 	.set counterLED = 180										; Set counter timer for led
 
@@ -232,7 +233,7 @@ Level3:
 	.set counterPlayer = 180									; Set counter timer for player input
 	call delayPlayer											; Call delay for player input
 				IN R17,pinb										; Record player input in
-				CP R17,R216										; Compare bit pattern for current level with player input
+				CP R17,R16										; Compare bit pattern for current level with player input
 
 
 
@@ -246,7 +247,8 @@ BRNE InitialSetUp
                                                                 ;Game will restart
 Level4:
 
-														; Input level number on the leds in binary sequence
+																; Input level number on the leds in binary sequence
+			LDI R16 , initial_Value_For_LED_Off
 			LDI R16 , level_Pattern_4
 			out porta, R16
 	.set counterLED = 170										; Set counter timer for led
@@ -276,6 +278,7 @@ BRNE InitialSetUp
 Level5:
 
 											; Input level number on the leds in binary sequence
+			LDI R16 , initial_Value_For_LED_Off
 			LDI R16 , level_Pattern_5
 			out porta, R16
 	.set counterLED = 160										; Set counter timer for led
@@ -305,7 +308,8 @@ BRNE InitialSetUp
 Level6:
 
 											; Input level number on the leds in binary sequence
-			LDI R26 , level_Pattern_6
+			LDI R16 , initial_Value_For_LED_Off
+			LDI R16 , level_Pattern_6
 			out porta, R16
 	.set counterLED = 150										; Set counter timer for led
 
@@ -333,15 +337,16 @@ BRNE InitialSetUp
                                                                 ;Game will restart
 Level7:
 
-											; Input level number on the leds in binary sequence
-			LDI R16 , level_Pattern_4
+																; Input level number on the leds in binary sequence
+			LDI R16 , initial_Value_For_LED_Off
+			LDI R16 , level_Pattern_7
 			out porta, R16
 	.set counterLED = 140										; Set counter timer for led
 
 	call delayPlayer											; Call delay on the led
 				LDI R16, initial_Value_For_LED_Off				; Turn off leds after announcing the level
 	call delayLED												; Call delay so player prepares to start game
-				LDI R16, bitPattern_level_4						; Show first bit pattern to player
+				LDI R16, bitPattern_level_7						; Show first bit pattern to player
 	call delayLED												; Call delay so player has time to see pattern
 				LDI R16, initial_Value_For_LED_Off				; Turn off leds after showing the pattern for the current level
 	.set counterPlayer = 140									; Set counter timer for player input
