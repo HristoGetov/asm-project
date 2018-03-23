@@ -13,6 +13,7 @@
 ; Improved the code overall design by deleting around 800 lines of code
 
 ; Version 3.1 : After final round added ... Flashesh LED's on / off
+; Version 3.2 : Added from level 10 to level 30
 
 ; TODO for Version 3 : add to level 30
 ; TODO for Version 3 : change delay time based on levels and player Input 
@@ -61,52 +62,114 @@ InitialSetUp:																	;Game will enter initial setup once at the beggini
 				out sph, R16													;
 				LDI R16,low(RAMEND)												;
 				out spl, R16													;
-																				;Adding patterns to the stack
+			     																;
+																				;Adding patterns to the stack	
+
+				LDI R16, bitPattern_level_30									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_29									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_28									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_27									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_26									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_25									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_24									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_23									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_22									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_21									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_20									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_19									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_18									;
+				PUSH R16														;
+																																	;
+				LDI R16, bitPattern_level_17									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_16									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_15									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_14									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_13									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_12									;
+				PUSH R16														;
+
+				LDI R16, bitPattern_level_11									;
+				PUSH R16														;
+
 				LDI R16, bitPattern_level_10									;
 				PUSH R16														;
-				CLR R16															;
+																			
 																				;
 				LDI R16, bitPattern_level_9										;
 				PUSH R16														;
-				CLR R16															;
+																			
 																				;
 				LDI R16, bitPattern_level_8										;
 				PUSH R16														;
-				CLR R16															;
+																			
 																				;
 				LDI R16, bitPattern_level_7										;
 				PUSH R16														;
-				CLR R16															;
+																			
 																				;
 				LDI R16, bitPattern_level_6										;
 				PUSH R16														;
-				CLR R16															;
+																			
 																				;
 				LDI R16, bitPattern_level_5										;
 				PUSH R16														;
-				CLR R16															;
+																		
 																				;
 				LDI R16, bitPattern_level_4										;
 				PUSH R16														;
-				CLR R16															;
+				
 																				;
 				LDI R16, bitPattern_level_3										;
 				PUSH R16														;
-				CLR R16															;
+				
 																				;
 				LDI R16, bitPattern_level_2										;
 				PUSH R16														;
-				CLR R16															;
+				
 																				;
 				LDI R16, bitPattern_level_1										;
 				PUSH R16														;
-				CLR R16														;
-																		;
-				LDI R16, 0b11111111													;
+				
+																				;
+				LDI R16, 0b11111111												;
 				OUT ddra , R16									;Writes the binary pattern to port a data direction registrer
 				OUT porta, R16									;Turn of LEDs
 				LDI R18 ,0										;Defines register R18 used to store the level pattern
-				LDI R19, 11										;Max level
+				LDI R19, 31										;Max level
 				LDI R20 ,1										;Minus 1 level on success
 jmp Level
 
