@@ -14,7 +14,7 @@
 
 ; Version 3.1 : After final round added ... Flashesh LED's on / off
 
-; Version 3.2 : Added to level 30
+; Version 3.2 : Added to level 30 and restart round
 
 ; Version 3.3 : Added delay changed based on levels
 
