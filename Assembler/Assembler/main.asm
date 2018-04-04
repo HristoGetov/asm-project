@@ -24,7 +24,7 @@
  
 																			;Binary patterns for levels
 																			;Randomly genereted using Java  { As random as possible }
-																			;Beggins from level 1
+/*																			;Beggins from level 1
 .EQU bitPattern_level_1  = 0b01010011
 .EQU bitPattern_level_2  = 0b00100111
 .EQU bitPattern_level_3  = 0b01001101
@@ -271,3 +271,86 @@ CALL delay															;Delay
 				OUT PINA, R16										;Display
 					
 JMP InitialSetUp
+*/
+
+;Test that LEDs work
+/*
+test:
+ldi r20, 0xFF													; load all lights 
+out ddra,r20													; display on the board for verification that LED works  
+out pina ,r20													; display
+brne test
+*/
+;Verify that buttons work
+;Initialy LED's are on 
+;If button is pressed LED will turn off
+in r21,pinb
+out ddra ,r21
+out pina ,r21
+
+
+ldi r20, 0b00000001
+out pina,r20
+call delaytest
+ldi r20, 0b00000010
+out pina, r20
+call delaytest
+ldi r20, 0b00000100
+out pina,r20
+call delaytest
+ldi r20, 0b00001000
+out pina,r20
+call delaytest
+ldi r20, 0b00010000
+out pina,r20
+call delaytest
+ldi r20, 0b00100000
+out pina,r20
+call delaytest
+ldi r20, 0b01000000
+out pina,r20
+call delaytest
+ldi r20, 0b10000000
+out pina,r20
+
+call delaytest
+ldi r20, 0b11000000
+out pina,r20
+call delaytest
+ldi r20, 0b00100000
+out pina,r20
+call delaytest
+ldi r20, 0b00010000
+out pina,r20
+call delaytest
+ldi r20, 0b00001000
+out pina,r20
+call delaytest
+ldi r20, 0b00000100
+out pina,r20
+call delaytest
+ldi r20, 0b00000010
+out pina,r20
+call delaytest
+ldi r20, 0b00000001
+out pina,r20
+call delaytest
+ldi r20, 0b11111111
+out pina,r20
+call delaytest
+ldi r20, 0b00000000
+out pina,r20
+ret
+
+
+delaytest:
+loop:							
+innerLoop:			
+innerLoop2:
+						DEC r24
+BRNE innerLoop2
+						DEC r23
+BRNE innerLoop
+						DEC r22
+BRNE loop
+RET
