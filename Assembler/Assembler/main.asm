@@ -6,7 +6,7 @@
 
 ; Version 1 : Not working as expected 
 ; Idea was to create level by level the same code just to make sure we get the basic idea of assembler
-; However we found numers bugs or feautures ;) Therefore we change our strategy
+; However we found numers bugs or feautures ?? Therefore we change our strategy
 
 ; Version 2 : Modified to use stack and limit the amount of code
 
@@ -21,7 +21,7 @@
 ; TODO for Version 4.1 : Add VIA convention
 
 ; TODO for Version 4.2 : Make randomizer for the game not using the predefine values
- 
+
 																			;Binary patterns for levels
 																			;Randomly genereted using Java  { As random as possible }
 																			;Beggins from level 1
@@ -261,93 +261,76 @@ restartGame:
 label:
 CALL delayRestart													;Delay
 CALL delay															;Delay
-				OUT PINA,R16										;Display R16 value
+				OUT pina,R16										;Display R16 value
 				ADD R16 , R16										;Add R16 to R16
 				CP R16 , R28										;Comparisment
 				BRNE label											;If not equal repeat
 CALL delayRestart													;Delay
 CALL delay															;Delay
 				LDI R16,0b00000000									;Display the 256 decimal value
-				OUT PINA, R16										;Display
+				OUT pina, R16										;Display
 					
 JMP InitialSetUp
 
 
 
-;Test that LEDs work
+;
+;
+;
+;
+;Game ends  here 
+;
+;
+;
+;
+
+
+
+
+
+													;Testing
+
 /*
-test:
-ldi r20, 0xFF													; load all lights 
-out ddra,r20													; display on the board for verification that LED works  
-out pina ,r20													; display
-brne test
-
-;Verify that buttons work
-;Initialy LED's are on 
-;If button is pressed LED will turn off
-in r21,pinb
-out ddra ,r21
-out pina ,r21
 
 
-ldi r20, 0b00000001
-out pina,r20
+;Testing for subrutin of lithing led's on request with specific value
+				LDI R16,0b11111111											;Initial value for register 16
+																			;With that value all LED's should be off
+				OUT ddra,R16												;Placing register 16 in ddra
+				OUT porta,R16												;Display the value
+call delaytest															
+				LDI R16,0b00001111											;Placing new value in a register 16
+				OUT porta ,R16												;Display the value
 call delaytest
-ldi r20, 0b00000010
-out pina, r20
+				LDI R16,0b11110000											;Placing new value in a register 16
+				OUT porta ,R16												;Display the value
 call delaytest
-ldi r20, 0b00000100
-out pina,r20
+				LDI R16,0b10101010											;Placing new value in a register 16
+				OUT porta ,R16												;Display the value
 call delaytest
-ldi r20, 0b00001000
-out pina,r20
+				LDI R16,0b01010101											;Placing new value in a register 16
+				OUT porta ,R16												;Display the value
 call delaytest
-ldi r20, 0b00010000
-out pina,r20
+				LDI R26,0b11001100											;Placing new value in a register 16
+				OUT porta ,R16												;Display the value
 call delaytest
-ldi r20, 0b00100000
-out pina,r20
-call delaytest
-ldi r20, 0b01000000
-out pina,r20
-call delaytest
-ldi r20, 0b10000000
-out pina,r20
-
-call delaytest
-ldi r20, 0b11000000
-out pina,r20
-call delaytest
-ldi r20, 0b00100000
-out pina,r20
-call delaytest
-ldi r20, 0b00010000
-out pina,r20
-call delaytest
-ldi r20, 0b00001000
-out pina,r20
-call delaytest
-ldi r20, 0b00000100
-out pina,r20
-call delaytest
-ldi r20, 0b00000010
-out pina,r20
-call delaytest
-ldi r20, 0b00000001
-out pina,r20
-call delaytest
-ldi r20, 0b11111111
-out pina,r20
-call delaytest
-ldi r20, 0b00000000
-out pina,r20
-ret
+				LDI R16,0b00110011											;Placing new value in a register 16
+				OUT porta ,R16												;Display the value
 
 
+
+
+
+
+;Delay loop showed by the teacher
+;Keeping CPU busy
 delaytest:
-loop:							
+						LDI R22,150	
+loop:			
+						LDI R23,150		
 innerLoop:			
-innerLoop2:
+						LDI R24,150
+innerLoop2:				
 						DEC r24
 BRNE innerLoop2
 						DEC r23
@@ -355,4 +338,74 @@ BRNE innerLoop
 						DEC r22
 BRNE loop
 RET
+
+
+
+
+
+;The idea was to test if the on LED's will be changed based on the new value
+;After completing the test the result was as expected and LED's were turn on as requested
+				
+
+
+	*/	
+
+
+
+
+
+/*
+
+;Testing input from buttons
+;The idea is if Wrong input go back go begging
+;Test used to see if it will be posible to read the input from the buttons
+;And compare it to the output of the LED's
+
+Test:
+				LDI R16,0b11111111											;Initial value for register 16
+				OUT ddra,R16												;Placing register 16 in ddra
+				OUT porta,R16												;Display the value
+call delaytest															
+				LDI R16,0b00001111											;Placing new value in a register 16
+				OUT porta ,R16												;Display the value
+call delaytest	
+				CLR R17														;Clear value in register 17
+				IN R17,pinb													;Read the value from the buttons and remember it in register 17
+				CP R17,R16													;Compare the value between them
+				BRNE Test													;If values are wrong start again
+call delaytest
+				LDI R16,0b11110000											;Placing new value in a register 16
+				OUT porta ,R16												;Display the value
+call delaytest	
+				CLR R17														;Clear value in register 17
+				IN R17,pinb													;Read the value from the buttons and remember it in register 17
+				CP R17,R16													;Compare the value between them
+				BRNE Test													;If values are wrong start again
+
+
+
+
+
+
+
+;Delay loop showed by the teacher
+;Keeping CPU busy
+delaytest:
+						LDI R22,200	
+loop:			
+						LDI R23,200		
+innerLoop:			
+						LDI R24,200
+innerLoop2:				
+						DEC r24
+BRNE innerLoop2
+						DEC r23
+BRNE innerLoop
+						DEC r22
+BRNE loop
+RET
+
+
+;Testing is succesfull if the buttons are pressed and then the leds go to the second sequence 
+
 */
