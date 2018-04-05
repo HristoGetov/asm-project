@@ -24,7 +24,7 @@
  
 																			;Binary patterns for levels
 																			;Randomly genereted using Java  { As random as possible }
-/*																			;Beggins from level 1
+																			;Beggins from level 1
 .EQU bitPattern_level_1  = 0b01010011
 .EQU bitPattern_level_2  = 0b00100111
 .EQU bitPattern_level_3  = 0b01001101
@@ -271,7 +271,8 @@ CALL delay															;Delay
 				OUT PINA, R16										;Display
 					
 JMP InitialSetUp
-*/
+
+
 
 ;Test that LEDs work
 /*
@@ -280,7 +281,7 @@ ldi r20, 0xFF													; load all lights
 out ddra,r20													; display on the board for verification that LED works  
 out pina ,r20													; display
 brne test
-*/
+
 ;Verify that buttons work
 ;Initialy LED's are on 
 ;If button is pressed LED will turn off
@@ -354,3 +355,4 @@ BRNE innerLoop
 						DEC r22
 BRNE loop
 RET
+*/
